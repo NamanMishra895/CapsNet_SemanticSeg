@@ -212,3 +212,24 @@ sample_images = dataset.test.images[:n_samples].reshape([-1, 28, 28, 1])
 with tf.Session() as sess:
     saver.restore(sess, checkpoint_path)
     caps2_output_value, decoder_output_value, y_pred_value = sess.run([caps2_output, decoder_output, y_pred],feed_dict={X: sample_images,y: np.array([], dtype=np.int64)})
+
+sample_images = sample_images.reshape(-1, 28, 28)
+reconstructions = decoder_output_value.reshape([-1, 28, 28])
+
+plt.figure(figsize=(n_samples * 2, 3))
+for index in range(n_samples):
+    plt.subplot(1, n_samples, index + 1)
+    plt.imshow(sample_images[index], cmap="binary")
+    plt.title("Label:" + str(mnist.test.labels[index]))
+    plt.axis("off")
+
+plt.show()
+
+plt.figure(figsize=(n_samples * 2, 3))
+for index in range(n_samples):
+    plt.subplot(1, n_samples, index + 1)
+    plt.title("Predicted:" + str(y_pred_value[index]))
+    plt.imshow(reconstructions[index], cmap="binary")
+    plt.axis("off")
+    
+plt.show()
