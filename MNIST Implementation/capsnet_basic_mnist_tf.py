@@ -205,7 +205,7 @@ with tf.Session() as sess:
     
     
 #Predictions
-    n_samples = 5
+n_samples = 5
 
 sample_images = dataset.test.images[:n_samples].reshape([-1, 28, 28, 1])
 
